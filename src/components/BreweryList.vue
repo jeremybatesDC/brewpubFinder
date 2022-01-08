@@ -1,11 +1,7 @@
 <template>
 	<!-- in vue3, even though 1 root node still seems like a good practice, now you may have multiple root nodes-->
 	
-  <div :class="[$style.wrapper, { darkMode: isDarkMode }]">
-	<label>
-		<input type="checkbox" v-model="isDarkMode" @change="toggleDarkMode">
-		<span>Dark Mode</span>
-	</label>
+  <div :class="$style.wrapper">
     <!-- yes, you can map state so you donT have to write store.state -->
 		<!-- but I've been taught to believe that explicitly communicating where somethingS coming from is valuable, from a measureable developer time and $ perspective-->
 		<p>My favorite brewpubs include {{$store.state.favoriteBrewery}}</p>
@@ -43,9 +39,7 @@ export default {
     }
   },
 	computed: {
-		isDarkMode(){
-			return this.$store.state.isDarkMode;
-		},
+
 		cityNoSpaces(){
 			return this.city.replace(' ', '_');
 		},
@@ -54,9 +48,7 @@ export default {
 		},
 	},
   methods: {
-		toggleDarkMode(){
-			this.$store.commit('toggleDarkMode');
-		},
+
 		async markInputDirty(){
 			this.inputDirty = true;
 		},
@@ -83,7 +75,7 @@ export default {
 .wrapper {
   color: #222;
 	background: #fff;
-	padding: 0 2rem 2rem;
+	padding: 2rem;
 }
 
 
@@ -91,7 +83,7 @@ export default {
 .label {
 	display: flex;
 	flex-direction: column;
-	padding-bottom: 1rem;
+	padding-bottom: 2rem;
 	align-items: flex-start;
 }
 </style>

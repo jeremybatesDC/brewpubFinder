@@ -1,6 +1,14 @@
 <template>
   <!-- <img loading="lazy" encoding="async" alt="Vue logo" src="./assets/logo.png" /> -->
-  <BreweryList v-cloak/>
+  <div :class="['wrapper--outer', { darkMode: isDarkMode }]">
+    <label>
+      <input type="checkbox" v-model="isDarkMode" @change="toggleDarkMode">
+      <span>Dark Mode</span>
+    </label>
+
+    <BreweryList v-cloak/>
+
+  </div>
 </template>
 
 <script>
@@ -10,6 +18,16 @@ export default {
   name: "App",
   components: {
     BreweryList,
+  },
+  computed: {
+    isDarkMode() {
+      return this.$store.state.isDarkMode;
+    },
+  },
+  methods: {
+    toggleDarkMode() {
+      this.$store.commit("toggleDarkMode");
+    },
   },
 };
 </script>
@@ -37,7 +55,6 @@ label span {
   font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding-top: 2rem;
   color: #000;
 	background: #fff;
 
@@ -46,8 +63,9 @@ label span {
 [v-cloak] {
   display: none;
 }
-.darkMode,
-.darkMode *:not(img) {
+.darkMode *:not(img, figure) {
 	filter: invert(100%);
 }
+
+
 </style>
