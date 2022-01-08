@@ -6,7 +6,7 @@
 
 - Saving isDarkMode in store for a couple reasons. First, I wanted a straightforward way to show Vuex pattern. Second, I think important UI state belongs in the store (maybe in it's own module). Dark mode feature is imperfect, but hopefully works for the purposes of this test.
 
-- I wrote a magical Cypress test `yarn test:e2e` here as a basic sanity check to see whether search results are being added to the page. Is this just testing the api you ask? I don't think so, but this api going down would indeed make the test fail. Team could decide if that's desireable or if that API should be monitored some other way and have the test use mock data
+- I wrote a magical Cypress test [run it with `yarn test:e2e`] here as a basic sanity check to see whether search results are being added to the page. Is this just testing the api you ask? I don't think so, but this api going down would indeed make the test fail. Team could decide if that's desireable or if that API should be monitored some other way and have the test use mock data
 
 - Re accessibility, inputs are inside labels for simplest screen reader association, semantic elements are used throughout, and the search results section has the aria-live attribute so screen readers will know that content is dynamic.
 
