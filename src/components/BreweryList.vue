@@ -23,33 +23,27 @@ export default {
     }
   },
   methods: {
-    getData(){
-      async function fetchStuff() {
-        const [breweriesResponse, userResponse] = await Promise.all([
-            fetch('https://api.openbrewerydb.org/breweries?by_city=philadelphia'),
-            fetch('https://randomuser.me/api/?')
-        ]);
-            const breweries = await breweriesResponse.json();
-            const randomUser = await userResponse.json();
-            return [breweries, randomUser];
-        }
-        fetchStuff().then(([breweries, randomUser]) => {
-            this.breweries = breweries;
-            this.randomUser = randomUser.results[0];
-        }).then(
-        () =>{
-            console.log('hey');
-            this.$store.commit('setFavoriteBrewery','Meowmix Brewery');
-        }
-        ).catch(error => {
-        // /breweries or /randomUser request failed
-            console.log(error);
-        // show funny pic i suupose 
-        });
-    },
+		async fetchStuff() {
+			const [breweriesResponse, userResponse] = await Promise.all([
+					fetch('https://api.openbrewerydb.org/breweries?by_city=philadelphia'),
+					fetch('https://randomuser.me/api/?')
+			]);
+			const breweries = await breweriesResponse.json();
+			const randomUser = await userResponse.json();
+			return [breweries, randomUser];
+		}
   },
   mounted() {
-    this.getData();
+    this.fetchStuff().then(([breweries, randomUser]) => {
+					this.breweries = breweries;
+					this.randomUser = randomUser.results[0];
+			}).then(() =>{
+					this.$store.commit('setFavoriteBrewery','Meowmix Brewery');
+			}).catch(error => {
+			// /breweries or /randomUser request failed
+					console.log(error);
+			// show funny pic i suupose 
+			});
   },
 };
 </script>
