@@ -1,11 +1,17 @@
 <template>
-  <div :class="$style.wrapper">
+	<!-- in vue3, even though 1 root node still seems like a good practice, now you may have multiple root nodes-->
+	
+  <div :class="[$style.wrapper, { darkMode: isDarkMode }]">
+	<label>
+		<input type="checkbox" v-model="isDarkMode" @change="toggleDarkMode">
+		<span>Dark Mode</span>
+	</label>
     <!-- yes, you can map state so you donT have to write store.state -->
 		<!-- but I've been taught to believe that explicitly communicating where somethingS coming from is valuable, from a measureable developer time and $ perspective-->
 		<p>My favorite brewpubs include {{$store.state.favoriteBrewery}}</p>
 
-		<label>
-			Search brewpub by city
+		<label :class="$style.label">
+			<div>Search brewpub by city</div>
 			<input type="search" v-model.trim="city" autocomplete="address-level2" placeholder="City" @focus="markInputDirty" @input="fetchBreweries">
 		</label>
 		<section aria-live="polite">
@@ -37,6 +43,9 @@ export default {
     }
   },
 	computed: {
+		isDarkMode(){
+			return this.$store.state.isDarkMode;
+		},
 		cityNoSpaces(){
 			return this.city.replace(' ', '_');
 		},
@@ -45,6 +54,9 @@ export default {
 		},
 	},
   methods: {
+		toggleDarkMode(){
+			this.$store.commit('toggleDarkMode');
+		},
 		async markInputDirty(){
 			this.inputDirty = true;
 		},
@@ -59,9 +71,7 @@ export default {
 			}).then(() =>{
 					this.$store.commit('setFavoriteBrewery','Duff Gardens');
 			}).catch(error => {
-			// /breweries  request failed
 					console.log(error);
-			// show funny pic i suupose 
 			});
   },
 };
@@ -72,6 +82,16 @@ export default {
 
 .wrapper {
   color: #222;
-	/* filter: invert(100%); */
+	background: #fff;
+	padding: 0 2rem 2rem;
+}
+
+
+
+.label {
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 1rem;
+	align-items: flex-start;
 }
 </style>
