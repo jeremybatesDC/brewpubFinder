@@ -1,7 +1,8 @@
 <template>
+  <!-- in vue3, even though 1 root node still seems like a good practice, now you may have multiple root nodes-->
   <header class="header--global">
     <h1>BrewPub Finder</h1>
-    <label>
+    <label class="label--darkMode">
       <input type="checkbox" v-model="isDarkMode" @change="toggleDarkMode">
       <span> Dark Mode</span>
     </label>
@@ -54,6 +55,7 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
+
 img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
@@ -81,6 +83,11 @@ h1 {
   font-size: 1.5rem;
 }
 
+ul {
+  list-style: none;
+  padding: 0;
+}
+
 label span,
 label div {
   user-select: none;
@@ -100,16 +107,26 @@ label div {
 [v-cloak] {
   display: none;
 }
+
 .darkMode *:not(img, figure) {
 	filter: invert(100%);
 }
 
 .header--global {
+  position: sticky;
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 1rem;
-  border-bottom: 1px solid #000;
+  padding: 0.5rem 1rem;
+  min-height: var(--headerHeight);
+  background: #000;
+  color: #fff;
+  border-bottom: 1px solid #fff;
+}
+
+.label--darkMode {
+  white-space: nowrap;
 }
 
 </style>

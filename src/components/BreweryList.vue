@@ -1,22 +1,25 @@
 <template>
 	<!-- in vue3, even though 1 root node still seems like a good practice, now you may have multiple root nodes-->
 	
-  <div :class="$style.wrapper">
+  <article :class="$style.wrapper">
     <!-- yes, you can map state so you donT have to write store.state -->
 		<!-- but I've been taught to believe that explicitly communicating where somethingS coming from is valuable, from a measureable developer time and $ perspective-->
 		<!-- trying to decide whether implementing this feature is a good idea -->
 		<!-- <p :class="$style.p">My favorite brewpubs include {{$store.state.favoriteBrewery}}</p> -->
-
+		
 		<label :class="$style.label">
-			<div>Search brewpub by city</div>
+			<span :class="$style.labelText">Find brewpubs in your city</span>
 			<input type="search" v-model.trim="city" autocomplete="address-level2" placeholder="City" @focus="markInputDirty" @input="fetchBreweries">
 		</label>
 		<section aria-live="polite">
 			<span v-if="city !== '' && brewpubs.length">
 			<h3>Brewpubs</h3>
-				<div v-for="brewery in brewpubs" :key="brewery.id">
+			<ul>
+				<li v-for="brewery in brewpubs" :key="brewery.id">
 				{{ brewery.name }}
-				</div>
+				</li>
+			</ul>
+			
 			</span>
 			<span v-else>
 				<figure>
@@ -26,7 +29,7 @@
 			</span>
 		</section>
 		
-</div>
+</article>
 </template>
 
 <script>
@@ -73,7 +76,15 @@ export default {
 <!-- module creates unique classname. Write in BEM. Get collision-free unique classNames for free -->
 <style module>
 
+[type="search"]{
+	padding: .25rem .5rem;
+	width: 100%;
+}
+
 .wrapper {
+	/* max-width: 18rem; */
+	min-height: calc(100vh - var(--headerHeight));
+	margin: 0 auto;
   color: #111;
 	background: #fff;
 	padding: 2rem;
@@ -88,5 +99,9 @@ export default {
 	flex-direction: column;
 	padding-bottom: 2rem;
 	align-items: flex-start;
+}
+
+.labelText {
+	font-weight: bold;
 }
 </style>
