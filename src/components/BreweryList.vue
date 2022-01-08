@@ -6,17 +6,20 @@
 
 		<label>
 			Search brewpub by city
-			<input type="search" v-model.trim="city" autocomplete="address-level2" placeholder="City" @input="fetchBreweries">
+			<input type="search" v-model.trim="city" autocomplete="address-level2" placeholder="City" @focus="markInputDirty" @input="fetchBreweries">
 		</label>
 		<section aria-live="polite">
-			<span v-if="city !== '' && breweries.length">
+			<span v-if="city !== '' && brewpubs.length">
 			<h3>Brewpubs</h3>
 				<div v-for="brewery in brewpubs" :key="brewery.id">
 				{{ brewery.name }}
 				</div>
 			</span>
 			<span v-else>
-				<img loading="lazy" encoding="async" width="100" height="100" alt="Homer Simpson freaking out over lack of beer"/>
+				<figure>
+					<img loading="lazy" encoding="async" width="240" height="240" alt="Homer Simpson freaking out over lack of beer" src="https://i1.sndcdn.com/artworks-000300317373-1mbyd0-t500x500.jpg"/>
+					<figcaption>Homer says please find beer</figcaption>
+				</figure>
 			</span>
 		</section>
 		
@@ -30,6 +33,7 @@ export default {
     return {
 			city: '',
       breweries: [],
+			inputDirty: false,
     }
   },
 	computed: {
@@ -41,6 +45,9 @@ export default {
 		},
 	},
   methods: {
+		async markInputDirty(){
+			this.inputDirty = true;
+		},
 		async fetchBreweries() {
 			const breweriesResponse = await fetch(`https://api.openbrewerydb.org/breweries?by_city=${this.cityNoSpaces}`);
 			this.breweries = await breweriesResponse.json();
