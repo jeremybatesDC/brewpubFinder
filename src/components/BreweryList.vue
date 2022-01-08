@@ -1,7 +1,6 @@
 <template>
   <div :class="$style.wrapper">
-    <h2>This app is pretending you're logged in as {{randomUser.name.first}}</h2>
-      <p>My favorite brewery is {{$store.state.favoriteBrewery}}</p>
+    <p>My favorite brewery is {{$store.state.favoriteBrewery}}</p>
 
     <div v-for="brewery in breweries" :key="brewery.id">
      {{ brewery.name }} : {{ brewery.brewery_type }}
@@ -15,28 +14,19 @@ export default {
   data(){
     return {
       breweries: null,
-      randomUser: {
-        name: {
-          first: '',
-        }
-      }
     }
   },
   methods: {
-		async fetchStuff() {
-			const [breweriesResponse, userResponse] = await Promise.all([
-					fetch('https://api.openbrewerydb.org/breweries?by_city=philadelphia'),
-					fetch('https://randomuser.me/api/?')
-			]);
+		async fetchBreweries() {
+			const breweriesResponse = await fetch('https://api.openbrewerydb.org/breweries?by_city=philadelphia')
 			const breweries = await breweriesResponse.json();
-			const randomUser = await userResponse.json();
-			return [breweries, randomUser];
+			return breweries;
 		}
   },
   mounted() {
-    this.fetchStuff().then(([breweries, randomUser]) => {
-					this.breweries = breweries;
-					this.randomUser = randomUser.results[0];
+    this.fetchBreweries().then((breweries) => {
+					this.breweries = breweries.filter(brewery => brewery.brewery_type === 'brewpub');
+					//this.randomUser = randomUser.results[0];
 			}).then(() =>{
 					this.$store.commit('setFavoriteBrewery','Meowmix Brewery');
 			}).catch(error => {
@@ -52,6 +42,6 @@ export default {
 <style module>
 
 .wrapper {
-  color: red;
+  color: rebeccapurple;
 }
 </style>
