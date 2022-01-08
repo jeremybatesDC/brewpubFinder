@@ -16,7 +16,7 @@
 			<h3>Brewpubs</h3>
 			<ul>
 				<li v-for="brewery in brewpubs" :key="brewery.id">
-				{{ brewery.name }}
+					<span>{{ brewery.name }}</span>
 				</li>
 			</ul>
 			
@@ -75,6 +75,10 @@ export default {
 
 <!-- module creates unique classname. Write in BEM. Get collision-free unique classNames for free -->
 <style module>
+
+h3 {
+	padding-bottom: .5rem;
+}
 
 [type="search"]{
 	padding: .25rem .5rem;
