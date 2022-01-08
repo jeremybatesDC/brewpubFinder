@@ -1,9 +1,8 @@
 <template>
   <div :class="$style.wrapper">
-    <h1>{{ msg }}</h1>
-    <h2>If you were a random user, your name might be {{randomUser.name.first}}</h2>
+    <h2>This app is pretending you're logged in as {{randomUser.name.first}}</h2>
     <div v-for="brewery in breweries" :key="brewery.id">
-     {{ brewery.name }}
+     {{ brewery.name }} : {{ brewery.brewery_type }}
   </div>
 </div>
 </template>
@@ -11,9 +10,6 @@
 <script>
 export default {
   name: "BreweryList",
-  props: {
-    msg: String,
-  },
   data(){
     return {
       breweries: null,
@@ -27,27 +23,26 @@ export default {
   methods: {
     getData(){
       async function fetchStuff() {
-          const [breweriesResponse, userResponse] = await Promise.all([
-            fetch('https://api.openbrewerydb.org/breweries?by_dist=38.8977,77.0365'),
+        const [breweriesResponse, userResponse] = await Promise.all([
+            fetch('https://api.openbrewerydb.org/breweries?by_city=philadelphia'),
             fetch('https://randomuser.me/api/?')
-        ]
-      );
-      const breweries = await breweriesResponse.json();
-      const randomUser = await userResponse.json();
-      return [breweries, randomUser];
-    }
-    fetchStuff().then(([breweries, randomUser]) => {
-      this.breweries = breweries;
-      this.randomUser = randomUser.results[0];
-    }).then(
-      () =>{
-        console.log('hey');
-      }
-    ).catch(error => {
-      // /breweries or /randomUser request failed
-      console.log(error);
-      // show funny pic i suupose 
-    });
+        ]);
+            const breweries = await breweriesResponse.json();
+            const randomUser = await userResponse.json();
+            return [breweries, randomUser];
+        }
+        fetchStuff().then(([breweries, randomUser]) => {
+            this.breweries = breweries;
+            this.randomUser = randomUser.results[0];
+        }).then(
+        () =>{
+            console.log('hey');
+        }
+        ).catch(error => {
+        // /breweries or /randomUser request failed
+            console.log(error);
+        // show funny pic i suupose 
+        });
     },
   },
   mounted() {

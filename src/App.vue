@@ -1,6 +1,6 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <BreweryList msg="Welcome to Your Vue.js App" />
+  <!-- <img loading="lazy" encoding="async" alt="Vue logo" src="./assets/logo.png" /> -->
+  <BreweryList/>
 </template>
 
 <script>
