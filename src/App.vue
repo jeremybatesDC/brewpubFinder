@@ -3,7 +3,7 @@
   <header class="header--global">
     <h1>BrewPub Finder</h1>
     <label class="label--darkMode">
-      <input type="checkbox" v-model="isDarkMode" @change="toggleDarkMode">
+      <input type="checkbox" :value="isDarkMode" @change="toggleDarkMode">
       <span> Dark Mode</span>
     </label>
   </header>
