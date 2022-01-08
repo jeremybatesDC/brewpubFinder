@@ -9,7 +9,7 @@
 		
 		<label :class="$style.label">
 			<span :class="$style.labelText">Find brewpubs in your city</span>
-			<input type="search" v-model.trim="city" autocomplete="address-level2" placeholder="City" @focus="markInputDirty" @input="fetchBreweries">
+			<input type="search" v-model.trim="city" autocomplete="address-level2" placeholder="City" @input="fetchBreweries">
 		</label>
 		<section aria-live="polite">
 			<span v-if="city !== '' && brewpubs.length">
@@ -39,11 +39,9 @@ export default {
     return {
 			city: '',
       breweries: [],
-			inputDirty: false,
     }
   },
 	computed: {
-
 		cityNoSpaces(){
 			return this.city.replace(' ', '_');
 		},
@@ -52,23 +50,10 @@ export default {
 		},
 	},
   methods: {
-
-		async markInputDirty(){
-			this.inputDirty = true;
-		},
 		async fetchBreweries() {
 			const breweriesResponse = await fetch(`https://api.openbrewerydb.org/breweries?by_city=${this.cityNoSpaces}`);
 			this.breweries = await breweriesResponse.json();
 		}
-  },
-  mounted() {
-    this.fetchBreweries().then((breweries) => {
-					console.log(breweries);
-			}).then(() =>{
-					this.$store.commit('setFavoriteBrewery','Duff Gardens');
-			}).catch(error => {
-					console.log(error);
-			});
   },
 };
 </script>

@@ -8,10 +8,7 @@
     </label>
   </header>
   <main :class="['wrapper--outer', { darkMode: isDarkMode }]">
-    
-
-    <BreweryList v-cloak/>
-
+    <BreweryList />
   </main>
 </template>
 
