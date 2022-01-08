@@ -1,6 +1,8 @@
 <template>
   <div :class="$style.wrapper">
     <h2>This app is pretending you're logged in as {{randomUser.name.first}}</h2>
+      <p>My favorite brewery is {{$store.state.favoriteBrewery}}</p>
+
     <div v-for="brewery in breweries" :key="brewery.id">
      {{ brewery.name }} : {{ brewery.brewery_type }}
   </div>
@@ -37,6 +39,7 @@ export default {
         }).then(
         () =>{
             console.log('hey');
+            this.$store.commit('setFavoriteBrewery','Meowmix Brewery');
         }
         ).catch(error => {
         // /breweries or /randomUser request failed
