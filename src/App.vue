@@ -1,14 +1,17 @@
 <template>
-  <!-- <img loading="lazy" encoding="async" alt="Vue logo" src="./assets/logo.png" /> -->
-  <div :class="['wrapper--outer', { darkMode: isDarkMode }]">
+  <header class="header--global">
+    <h1>BrewPub Finder</h1>
     <label>
       <input type="checkbox" v-model="isDarkMode" @change="toggleDarkMode">
-      <span>Dark Mode</span>
+      <span> Dark Mode</span>
     </label>
+  </header>
+  <main :class="['wrapper--outer', { darkMode: isDarkMode }]">
+    
 
     <BreweryList v-cloak/>
 
-  </div>
+  </main>
 </template>
 
 <script>
@@ -55,6 +58,11 @@ img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
 }
+
+img {
+  height: auto;
+}
+
 input, button, textarea, select {
   font: inherit;
 }
@@ -65,9 +73,19 @@ p, h1, h2, h3, h4, h5, h6 {
   isolation: isolate;
 }
 
-label span {
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.1111;
+}
+
+h1 {
+  font-size: 1.5rem;
+}
+
+label span,
+label div {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
 }
 
 #app {
@@ -86,5 +104,12 @@ label span {
 	filter: invert(100%);
 }
 
+.header--global {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  border-bottom: 1px solid #000;
+}
 
 </style>

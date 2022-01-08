@@ -4,7 +4,8 @@
   <div :class="$style.wrapper">
     <!-- yes, you can map state so you donT have to write store.state -->
 		<!-- but I've been taught to believe that explicitly communicating where somethingS coming from is valuable, from a measureable developer time and $ perspective-->
-		<p>My favorite brewpubs include {{$store.state.favoriteBrewery}}</p>
+		<!-- trying to decide whether implementing this feature is a good idea -->
+		<!-- <p :class="$style.p">My favorite brewpubs include {{$store.state.favoriteBrewery}}</p> -->
 
 		<label :class="$style.label">
 			<div>Search brewpub by city</div>
@@ -73,12 +74,14 @@ export default {
 <style module>
 
 .wrapper {
-  color: #222;
+  color: #111;
 	background: #fff;
 	padding: 2rem;
 }
 
-
+.p {
+	color: inherit;
+}
 
 .label {
 	display: flex;

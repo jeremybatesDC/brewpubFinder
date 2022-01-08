@@ -4,6 +4,9 @@
 
 ## Notes
 
+Want to mark input dirty so I can show a true "no results" as opposed to "you haven't searched yet"
+
+Slight hiccup is that the brewery data includes entries with blank cities -- maybe i should filter those out
 
 
 ------
