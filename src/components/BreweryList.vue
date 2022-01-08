@@ -5,8 +5,8 @@
 		<p>My favorite brewpubs include {{$store.state.favoriteBrewery}}</p>
 
 		<label>
-			<!-- -->
-			<input v-model.trim="city" placeholder="City" @input="fetchBreweries">
+			Search brewpub by city
+			<input type="search" v-model.trim="city" autocomplete="address-level2" placeholder="City" @input="fetchBreweries">
 		</label>
 		<section aria-live="polite">
 			<span v-if="city !== '' && breweries.length">
