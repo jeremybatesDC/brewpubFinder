@@ -15,7 +15,7 @@
 			<span v-if="city !== '' && brewpubs.length">
 			<h3>Brewpubs</h3>
 			<ul>
-				<li v-for="brewery in brewpubs" :key="brewery.id">
+				<li class="result" v-for="brewery in brewpubs" :key="brewery.id">
 					<span>{{ brewery.name }}</span>
 				</li>
 			</ul>
