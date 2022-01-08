@@ -11,5 +11,6 @@ export default createStore({
     }
   },
   actions: {},
+  // can create a UI module for things like isDarkMode or navIsOpen
   modules: {},
 });

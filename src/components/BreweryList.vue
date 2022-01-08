@@ -1,14 +1,22 @@
 <template>
   <div :class="$style.wrapper">
-    
-		<p>My favorite breweries are {{$store.state.favoriteBrewery}}</p>
+    <!-- yes, you can map state so you donT have to write store.state -->
+		<!-- but I've been taught to believe that explicitly communicating where somethingS coming from is valuable, from a measureable developer time and $ perspective-->
+		<p>My favorite brewpubs include {{$store.state.favoriteBrewery}}</p>
 
+		<label>
+			<!-- -->
+			<input v-model.trim="city" placeholder="City" @input="fetchBreweries">
+		</label>
 		<section aria-live="polite">
-			<span v-show="breweries && breweries.length">
-			breweries
-				<div v-for="brewery in breweries" :key="brewery.id">
+			<span v-if="city !== '' && breweries.length">
+			<h3>Brewpubs</h3>
+				<div v-for="brewery in brewpubs" :key="brewery.id">
 				{{ brewery.name }}
 				</div>
+			</span>
+			<span v-else>
+				<img loading="lazy" encoding="async" width="100" height="100" alt="Homer Simpson freaking out over lack of beer"/>
 			</span>
 		</section>
 		
@@ -20,24 +28,31 @@ export default {
   name: "BreweryList",
   data(){
     return {
-      breweries: null,
+			city: '',
+      breweries: [],
     }
   },
+	computed: {
+		cityNoSpaces(){
+			return this.city.replace(' ', '_');
+		},
+		brewpubs(){
+			return this.breweries.filter(brewery => brewery.brewery_type === 'brewpub');
+		},
+	},
   methods: {
 		async fetchBreweries() {
-			const breweriesResponse = await fetch('https://api.openbrewerydb.org/breweries?by_city=philadelphia')
-			const breweries = await breweriesResponse.json();
-			return breweries;
+			const breweriesResponse = await fetch(`https://api.openbrewerydb.org/breweries?by_city=${this.cityNoSpaces}`);
+			this.breweries = await breweriesResponse.json();
 		}
   },
   mounted() {
     this.fetchBreweries().then((breweries) => {
-					this.breweries = breweries.filter(brewery => brewery.brewery_type === 'brewpub');
-					//this.randomUser = randomUser.results[0];
+					console.log(breweries);
 			}).then(() =>{
-					this.$store.commit('setFavoriteBrewery','Meowmix Brewery');
+					this.$store.commit('setFavoriteBrewery','Duff Gardens');
 			}).catch(error => {
-			// /breweries or /randomUser request failed
+			// /breweries  request failed
 					console.log(error);
 			// show funny pic i suupose 
 			});
@@ -45,7 +60,7 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<!-- module creates unique classname. Write in BEM. Get collision-free unique classNames for free -->
 <style module>
 
 .wrapper {
