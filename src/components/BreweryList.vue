@@ -1,25 +1,17 @@
-<template>
-	<!-- in vue3, even though 1 root node still seems like a good practice, now you may have multiple root nodes-->
-	
+<template>	
   <article :class="$style.wrapper">
-    <!-- yes, you can map state so you donT have to write store.state -->
-		<!-- but I've been taught to believe that explicitly communicating where somethingS coming from is valuable, from a measureable developer time and $ perspective-->
-		<!-- trying to decide whether implementing this feature is a good idea -->
-		<!-- <p :class="$style.p">My favorite brewpubs include {{$store.state.favoriteBrewery}}</p> -->
-		
 		<label :class="$style.label">
 			<span :class="$style.labelText">Find brewpubs in your city</span>
-			<input type="search" v-model.trim="city" autocomplete="address-level2" placeholder="City" @input="fetchBreweries">
+			<input :class="$style.search" type="search" v-model.trim="city" autocomplete="address-level2" placeholder="City" @input="fetchBreweries">
 		</label>
 		<section aria-live="polite">
 			<span v-if="city !== '' && brewpubs.length">
-			<h3>Brewpubs</h3>
-			<ul>
-				<li class="result" v-for="brewery in brewpubs" :key="brewery.id">
-					<span>{{ brewery.name }}</span>
-				</li>
-			</ul>
-			
+				<h3 :class="$style.h3">Brewpubs</h3>
+				<ul>
+					<li class="result" v-for="brewery in brewpubs" :key="brewery.id">
+						<span>{{ brewery.name }}</span>
+					</li>
+				</ul>
 			</span>
 			<span v-else>
 				<figure>
@@ -27,9 +19,8 @@
 					<figcaption>Homer says please find beer</figcaption>
 				</figure>
 			</span>
-		</section>
-		
-</article>
+		</section>	
+	</article>
 </template>
 
 <script>
@@ -58,14 +49,14 @@ export default {
 };
 </script>
 
-<!-- module creates unique classname. Write in BEM. Get collision-free unique classNames for free -->
+<!-- module creates unique, collision-free classnames -->
 <style module>
 
-h3 {
+.h3 {
 	padding-bottom: .5rem;
 }
 
-[type="search"]{
+.search {
 	padding: .25rem .5rem;
 	width: 100%;
 }
