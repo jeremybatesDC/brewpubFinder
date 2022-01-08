@@ -35,10 +35,8 @@ export default {
 
 <style>
 
-/*
-  Josh's Custom CSS Reset
-  https://www.joshwcomeau.com/css/custom-css-reset/
-*/
+/*CSS Reset per Josh Comeau*/
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -75,7 +73,7 @@ p, h1, h2, h3, h4, h5, h6 {
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.1111;
 }
-
+/* end CSS reset */
 h1 {
   font-size: 1.5rem;
 }
