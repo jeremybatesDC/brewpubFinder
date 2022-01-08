@@ -1,10 +1,17 @@
 <template>
   <div :class="$style.wrapper">
-    <p>My favorite brewery is {{$store.state.favoriteBrewery}}</p>
+    
+		<p>My favorite breweries are {{$store.state.favoriteBrewery}}</p>
 
-    <div v-for="brewery in breweries" :key="brewery.id">
-     {{ brewery.name }} : {{ brewery.brewery_type }}
-  </div>
+		<section aria-live="polite">
+			<span v-show="breweries && breweries.length">
+			breweries
+				<div v-for="brewery in breweries" :key="brewery.id">
+				{{ brewery.name }}
+				</div>
+			</span>
+		</section>
+		
 </div>
 </template>
 
@@ -42,6 +49,7 @@ export default {
 <style module>
 
 .wrapper {
-  color: rebeccapurple;
+  color: #222;
+	/* filter: invert(100%); */
 }
 </style>
