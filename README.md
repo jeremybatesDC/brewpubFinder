@@ -18,7 +18,7 @@
 
 - I used Vue's CSS modules feature (more powerful than scoped). 
 
-- I could keep coding and making this prettier, but hoping I've demonstrated the necessary core competancies.
+- I could keep coding and making this prettier, but hoping I've demonstrated the necessary core competencies.
 
 - Please don't visit more than 12 brewpubs per day.
 
