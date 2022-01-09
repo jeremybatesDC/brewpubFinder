@@ -8,8 +8,8 @@
 			<!-- using v-show instead of v-if for performance reasons -->
 			<span v-show="thereAreSomeBrewPubs">
 				<h3 :class="$style.h3">Brewpubs</h3>
-				<ul>
-					<li class="result" v-for="brewery in brewpubs" :key="brewery.id">
+				<ul class="results__list">
+					<li class="results__listItem" v-for="brewery in brewpubs" :key="brewery.id">
 						<span>{{ brewery.name }}</span>
 					</li>
 				</ul>
