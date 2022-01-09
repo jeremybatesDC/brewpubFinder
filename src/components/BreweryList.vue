@@ -5,6 +5,7 @@
 			<input :class="$style.search" type="search" v-model.trim="city" autocomplete="address-level2" placeholder="City" @input.passive="callFetchBreweriesAndDoMoreStuff">
 		</label>
 		<section aria-live="polite">
+			<!-- using v-show instead of v-if for performance reasons -->
 			<span v-show="thereAreSomeBrewPubs">
 				<h3 :class="$style.h3">Brewpubs</h3>
 				<ul>
@@ -50,7 +51,7 @@ export default {
 			this.breweries = await breweriesResponse.json();
 			return breweriesResponse;
 		},
-		callFetchBreweriesAndDoMoreStuff(){
+		async callFetchBreweriesAndDoMoreStuff(){
 			this.fetchBreweries().then((breweries) => {
 				console.log(breweries)
 			}).catch(error => {
