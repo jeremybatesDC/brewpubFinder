@@ -53,6 +53,8 @@ export default {
 		},
 		async callFetchBreweriesAndDoMoreStuff(){
 			this.fetchBreweries().then((breweries) => {
+				// this console log is just for this demo
+				// could chain whatever promise(s) here
 				console.log(breweries)
 			}).catch(error => {
 				console.log(error);
@@ -80,7 +82,7 @@ export default {
 	/* max-width: 18rem; */
 	min-height: calc(100vh - var(--headerHeight));
 	margin: 0 auto;
-  color: #111;
+	color: #111;
 	background: #fff;
 	padding: 2rem;
 }
