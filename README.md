@@ -20,6 +20,8 @@
 
 - I could keep coding and making this prettier, but hoping I've demonstrated the necessary core competencies.
 
+- API used was openbrewerydb
+
 - Please don't visit more than 12 brewpubs per day.
 
 ------
