@@ -2,10 +2,10 @@
   <article :class="$style.wrapper">
 		<label :class="$style.label">
 			<span :class="$style.labelText">Find brewpubs in your city</span>
-			<input :class="$style.search" type="search" v-model.trim="city" autocomplete="address-level2" placeholder="City" @input="fetchBreweries">
+			<input :class="$style.search" type="search" v-model.trim="city" autocomplete="address-level2" placeholder="City" @input.passive="fetchBreweries">
 		</label>
 		<section aria-live="polite">
-			<span v-show="brewpubs.length">
+			<span v-show="thereAreSomeBrewPubs">
 				<h3 :class="$style.h3">Brewpubs</h3>
 				<ul>
 					<li class="result" v-for="brewery in brewpubs" :key="brewery.id">
@@ -13,7 +13,7 @@
 					</li>
 				</ul>
 			</span>
-			<span v-show="!brewpubs.length">
+			<span v-show="!thereAreSomeBrewPubs">
 				<figure>
 					<img loading="lazy" encoding="async" width="240" height="240" alt="Homer Simpson freaking out over lack of beer" src="https://i1.sndcdn.com/artworks-000300317373-1mbyd0-t500x500.jpg"/>
 					<figcaption>Homer says please find beer</figcaption>
@@ -38,6 +38,9 @@ export default {
 		},
 		brewpubs(){
 			return this.breweries.filter(brewery => brewery.brewery_type === 'brewpub');
+		},
+		thereAreSomeBrewPubs(){
+			return this.brewpubs.length > 0 && this.city !== '';
 		},
 	},
   methods: {
