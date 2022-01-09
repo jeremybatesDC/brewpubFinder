@@ -5,7 +5,7 @@
 			<input :class="$style.search" type="search" v-model.trim="city" autocomplete="address-level2" placeholder="City" @input="fetchBreweries">
 		</label>
 		<section aria-live="polite">
-			<span v-if="city !== '' && brewpubs.length">
+			<span v-show="brewpubs.length">
 				<h3 :class="$style.h3">Brewpubs</h3>
 				<ul>
 					<li class="result" v-for="brewery in brewpubs" :key="brewery.id">
@@ -13,7 +13,7 @@
 					</li>
 				</ul>
 			</span>
-			<span v-else>
+			<span v-show="!brewpubs.length">
 				<figure>
 					<img loading="lazy" encoding="async" width="240" height="240" alt="Homer Simpson freaking out over lack of beer" src="https://i1.sndcdn.com/artworks-000300317373-1mbyd0-t500x500.jpg"/>
 					<figcaption>Homer says please find beer</figcaption>
