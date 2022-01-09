@@ -2,7 +2,7 @@
   <article :class="$style.wrapper">
 		<label :class="$style.label">
 			<span :class="$style.labelText">Find brewpubs in your city</span>
-			<input :class="$style.search" type="search" v-model.trim="city" autocomplete="address-level2" placeholder="City" @input.passive="fetchBreweries">
+			<input :class="$style.search" type="search" v-model.trim="city" autocomplete="address-level2" placeholder="City" @input.passive="callFetchBreweriesAndDoMoreStuff">
 		</label>
 		<section aria-live="polite">
 			<span v-show="thereAreSomeBrewPubs">
@@ -15,7 +15,7 @@
 			</span>
 			<span v-show="!thereAreSomeBrewPubs">
 				<figure>
-					<img loading="lazy" encoding="async" width="240" height="240" alt="Homer Simpson freaking out over lack of beer" src="https://i1.sndcdn.com/artworks-000300317373-1mbyd0-t500x500.jpg"/>
+					<img loading="lazy" encoding="async" width="240" height="240" alt="Homer Simpson freaking out over lack of beer" :src="imgSrc"/>
 					<figcaption>Homer says please find beer</figcaption>
 				</figure>
 			</span>
@@ -28,8 +28,9 @@ export default {
   name: "BreweryList",
   data(){
     return {
-			city: '',
-      breweries: [],
+		city: '',
+		breweries: [],
+		imgSrc:'https://i1.sndcdn.com/artworks-000300317373-1mbyd0-t500x500.jpg'
     }
   },
 	computed: {
@@ -47,7 +48,17 @@ export default {
 		async fetchBreweries() {
 			const breweriesResponse = await fetch(`https://api.openbrewerydb.org/breweries?by_city=${this.cityNoSpaces}`);
 			this.breweries = await breweriesResponse.json();
-		}
+			return breweriesResponse;
+		},
+		callFetchBreweriesAndDoMoreStuff(){
+			this.fetchBreweries().then((breweries) => {
+				console.log(breweries)
+			}).catch(error => {
+				console.log(error);
+				this.imgSrc = 'https://cdn.quotesgram.com/img/82/68/690673749-homersimpsondoh.png';
+				// show funny pic i suupose 
+			});
+		},
   },
 };
 </script>
