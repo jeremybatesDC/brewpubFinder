@@ -12,7 +12,7 @@
 
 - Used Vue CLI for scaffolding.
 
-- For a real product, I'd bang on the API less frequently/more conservatively than on each keystroke (could use the .lazy Vue modifier and keep user visually engaged with a super sexy spinner heh)
+- For a real product, I'd bang on the API less frequently/more conservatively than on each keystroke (could use the .lazy Vue modifier or an actual Search button and keep user visually engaged with a super sexy spinner heh -- then would store something like "mostRecentlySearchedCity")
 
 - I use scss but just wrote flat css here for this test. I threw in a CSS custom property just to show that I know and love them.
 
